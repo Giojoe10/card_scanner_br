@@ -7,6 +7,8 @@ from kivymd.uix.scrollview import MDScrollView
 import kivy.core.window
 from kivy.properties import StringProperty, NumericProperty, ListProperty
 import ssl
+from card import Card
+
 from kivy.utils import platform
 if platform == "android":
     from android.permissions import request_permissions, Permission
@@ -18,7 +20,12 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 
 class CartaTab(MDScrollView):
-    pass
+    image_url = StringProperty()
+    
+    def search(self, text):
+        carta = Card(text)
+        print(carta.__dict__)
+        self.image_url = carta.image_url
 
 class ScannerTab(MDFloatLayout):
     pass

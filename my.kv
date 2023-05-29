@@ -55,20 +55,24 @@
 <ScannerTab>
     orientation:"vertical"
     id:scannertab
-    Camera:
-        resolution: 1920, 1080
-        play: True
-        size_hint:2,2
-        allow_stretch:True
-        center:self.size and scannertab.center
-        canvas.before:
-            PushMatrix
-            Rotate:
-                angle: -90
-                axis: 0,0,1
-                origin: root.width/2, root.height/2
-        canvas.after:
-            PopMatrix
+    MDLabel:
+        text:"[Camera]"
+        size_hint:1,1
+        halign:"center"
+    # Camera:
+    #     resolution: 1920, 1080
+    #     play: True
+    #     size_hint:2,2
+    #     allow_stretch:True
+    #     center:self.size and scannertab.center
+    #     canvas.before:
+    #         PushMatrix
+    #         Rotate:
+    #             angle: -90
+    #             axis: 0,0,1
+    #             origin: root.width/2, root.height/2
+    #     canvas.after:
+    #         PopMatrix
     MDFloatLayout:
         anchor_x:"center"
         anchor_y:"bottom"
@@ -117,6 +121,7 @@
 
 
 <CartaTab>
+    id: carta_tab
     MDGridLayout:
         bg_color:[1,1,1,1]
         cols:1
@@ -124,8 +129,15 @@
         # orientation:'vertical'
         padding:["25dp","25dp"]
         spacing:"25dp"
+        MDTextField:
+            id:campo_nome
+            hint_text: "Pesquisa por nome"
+            helper_text: "Ex. Bocarra Sinistra Colossal"
+            icon_right: "magnify"
+            on_text_validate:carta_tab.search(self.text)
+
         AsyncImage:
-            source: "https://repositorio.sbrauble.com/arquivos/in/magic/480206/6425a814e682a-pdr8t-qd3ci-12757948266425a814e6872.jpg"
+            source: root.image_url
             # source: "assets\images\chandra.png"
             size_hint_y:None
             height:root.width
