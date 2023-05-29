@@ -1,0 +1,127 @@
+<HomePage>:
+    MDBoxLayout:
+        orientation: "vertical"
+        MDTopAppBar:
+            title: "Scanner de Cartas"
+            halign:"center"
+
+        MDBottomNavigation:
+            # Add a NavigationItem for each Navigation.
+            MDBottomNavigationItem:
+                name: "Scanner"
+                icon: "camera"
+
+                ScannerTab:
+                    name:"ScannerTab"
+
+            MDBottomNavigationItem:
+                name: "Carta"
+                icon: "cards-outline"
+
+                CartaTab:
+                    name:"CartaTab"
+
+
+            MDBottomNavigationItem:
+                name: "Lista"
+                icon: "list-box"
+
+                MDLabel:
+                    text: "Olá lista!"
+                    halign: "center"
+
+
+<ScannerTab>
+    MDBoxLayout:
+        orientation:"vertical"
+        Camera:
+            id: camera
+            allow_stretch:True
+            keep_ratio:True
+            play: True
+            size_hint_y:1
+            canvas.before:
+                PushMatrix
+                Rotate:
+                    angle: -90
+                    origin: self.center
+            canvas.after:
+                PopMatrix
+        # MDLabel:
+        #     text:"[Câmera]"
+        #     height: dp(30)
+        #     halign: "center"
+        MDAnchorLayout:
+            anchor_x:"center"
+            anchor_y:"bottom"
+            padding: [0,0,0,50]
+            MDIconButton:
+                icon: "camera-outline"
+                pos_hint: {'center_x': .5,'center_y': .5}
+                md_bg_color: [0,0,0,1]
+
+
+<CartaTab>
+    MDGridLayout:
+        bg_color:[1,1,1,1]
+        cols:1
+        size_hint_y: None
+        # orientation:'vertical'
+        padding:"25dp"
+        spacing:"25dp"
+        AsyncImage:
+            source: "https://repositorio.sbrauble.com/arquivos/in/magic/480206/6425a814e682a-pdr8t-qd3ci-12757948266425a814e6872.jpg"
+            # source: "assets\images\chandra.png"
+            size_hint_y:None
+            height:root.width
+            allow_stretch:True
+            keep_ratio:True
+        MDLabel:
+            text:"Chandra, Farol da Esperança"
+            font_size:"18dp"
+            font_name:"assets/fonts/FiraSans-Bold"
+            text_color:[0,0,0,1]
+            halign:"center"
+            bold:True
+        MDBoxLayout:
+            adaptive_height: True
+            orientation:'vertical'
+            md_bg_color:[0.3,0.3,0.3,1]
+            size_hint: 1, None
+            padding:"20dp","10dp","20dp","30dp"
+            height:self.minimum_height
+            MDBoxLayout:
+                padding:0,"10dp",0,0
+                orientation:'vertical'
+                spacing:"20dp"
+                adaptive_height: True
+                size_hint_y:None
+                size: self.size
+                MDLabel:
+                    text:'Marcha das Máquinas'
+                    font_name:"assets/fonts/FiraSans-SemiBold"
+                LinhaPreco:
+                LinhaPreco:
+                LinhaPreco:
+                    
+
+
+
+<LinhaPreco@MDGridLayout>
+    cols:3
+    MDTextButton:
+        md_bg_color:[0.2,0.2,0.2,0.2]
+        text:"+"
+        halign:'center'
+        color:[1,1,1,1]
+        width:"20dp"
+    MDTextButton:
+        md_bg_color:[1,0.5,0.5,0.2]
+        text:"-"
+        halign:'center'
+        color:[1,1,1,1]
+        width:"20dp"
+    MDLabel:
+        text:"Normal: 29,90"
+        height: self.texture_size[1]
+        font_size:"16dp"
