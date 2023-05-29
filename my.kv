@@ -26,39 +26,98 @@
                 name: "Lista"
                 icon: "list-box"
 
-                MDLabel:
-                    text: "Olá lista!"
-                    halign: "center"
+                ListaTab:
+
+                MDAnchorLayout:
+                    anchor_x:"center"
+                    size_hint_y:None
+                    anchor_y:"bottom"
+                    bg_color:[1,1,1,1]
+                    MDBoxLayout:
+                        width:root.width
+                        size_hint_y:None
+                        height:"50dp"
+                        md_bg_color:[0.3,0.3,0.3,1]
+                        width:root.width
+                        padding:"15dp",0,"15dp",0
+                        MDLabel:
+                            font_name:"assets/fonts/FiraSans-SemiBold"
+                            text:"Total:"
+                            halign:"left"
+                            font_size:"20dp"
+                        MDLabel:
+                            font_name:"assets/fonts/FiraSans-SemiBold"
+                            text:"R$354,99"
+                            halign:"right"
+                            font_size:"20dp"
 
 
 <ScannerTab>
-    MDBoxLayout:
-        orientation:"vertical"
+    orientation:"vertical"
+    md_bg_color: [1,1,1,1]
+    id:proxya
+    MDFloatLayout:
+        md_bg_color:[1,0,1,1]
+        size_hint:None,None
+        size: proxya.width, proxya.height
+        id:proxyb
         Camera:
             id: camera
-            allow_stretch:True
-            keep_ratio:True
+            center:self.size and proxyb.center
+            size_hint:None,None
+            size: proxyb.height, proxyb.width
+            allow_stretch: True
+            keep_ratio:False
             play: True
-            size_hint_y:1
             canvas.before:
                 PushMatrix
                 Rotate:
-                    angle: -90
                     origin: self.center
+                    angle: -90
             canvas.after:
                 PopMatrix
+            
         # MDLabel:
         #     text:"[Câmera]"
         #     height: dp(30)
         #     halign: "center"
-        MDAnchorLayout:
-            anchor_x:"center"
-            anchor_y:"bottom"
-            padding: [0,0,0,50]
-            MDIconButton:
-                icon: "camera-outline"
-                pos_hint: {'center_x': .5,'center_y': .5}
-                md_bg_color: [0,0,0,1]
+        # MDFloatLayout:
+        #     # anchor_x:"center"
+        #     # anchor_y:"bottom"
+        #     # padding: [0,0,0,50]
+        #     MDIconButton:
+        #         icon: "camera-outline"
+        #         pos_hint: {'center_x': .5,'center_y': .5}
+        #         md_bg_color: [0,0,0,1]
+
+
+<ListaTab>
+    MDGridLayout:
+        bg_color:[1,1,1,1]
+        cols:1
+        size_hint_y: None
+        # orientation:'vertical'
+        padding:0,"25dp",0,0
+        spacing:"25dp"
+
+
+        CartaNaLista:
+            name:"Chandra, Hope's Beacon"
+            image:"https://cards.scryfall.io/art_crop/front/6/2/62707510-96ae-492f-8b14-a34d0c9fb859.jpg?1682206446"
+            set_name:"Marcha das Máquinas (Borderless)"
+            acabamento:"Foil"
+            qnt:1
+            preco:174.99
+        
+        CartaNaLista:
+            name:"Elesh Norn // The Argent Etchings"
+            image:"https://cards.scryfall.io/art_crop/front/4/4/44dcab01-1d13-4dfc-ae2f-fbaa3dd35087.jpg?1675956896"
+            set_name:"Phyrexia: Tudo será um"
+            acabamento:"Normal"
+            qnt:2
+            preco:90
+            
+        
 
 
 <CartaTab>
@@ -83,31 +142,59 @@
             text_color:[0,0,0,1]
             halign:"center"
             bold:True
-        MDBoxLayout:
-            adaptive_height: True
-            orientation:'vertical'
-            md_bg_color:[0.3,0.3,0.3,1]
-            size_hint: 1, None
-            padding:"20dp","10dp","20dp","30dp"
-            height:self.minimum_height
-            MDBoxLayout:
-                padding:0,"10dp",0,0
-                orientation:'vertical'
-                spacing:"20dp"
-                adaptive_height: True
-                size_hint_y:None
-                size: self.size
-                MDLabel:
-                    text:'Marcha das Máquinas'
-                    font_name:"assets/fonts/FiraSans-SemiBold"
+
+        SetCard:
+            ListaPrecos:
+                set_name:"Marcha das Máquinas"
                 LinhaPreco:
+                    acabamento:"Normal"
+                    preco: 48.80
                 LinhaPreco:
+                    acabamento:"Promo"
+                    preco: 44.90
                 LinhaPreco:
+                    acabamento:"Foil"
+                    preco: 69.90
+                LinhaPreco:
+                    acabamento:"Pre-Release"
+                    preco: 71.90
+                            
+        SetCard:
+            ListaPrecos:
+                set_name:"Marcha das Máquinas (Borderless)"
+                LinhaPreco:
+                    acabamento:"Normal"
+                    preco: 79.90
+                LinhaPreco:
+                    acabamento:"Foil"
+                    preco: 174.99
+
+                            
+
                     
 
 
+<ListaPrecos>
+    padding:0,"10dp",0,0
+    orientation:'vertical'
+    spacing:"20dp"
+    adaptive_height: True
+    size_hint_y:None
+    size: self.size
+    MDLabel:
+        text: root.set_name
+        font_name:"assets/fonts/FiraSans-SemiBold"
 
-<LinhaPreco@MDGridLayout>
+<SetCard>
+    adaptive_height: True
+    orientation:'vertical'
+    md_bg_color:[0.3,0.3,0.3,1]
+    size_hint: 1, None
+    padding:"20dp","10dp","20dp","30dp"
+    height:self.minimum_height
+
+       
+<LinhaPreco>
     cols:3
     MDTextButton:
         md_bg_color:[0.2,0.2,0.2,0.2]
@@ -122,6 +209,27 @@
         color:[1,1,1,1]
         width:"20dp"
     MDLabel:
-        text:"Normal: 29,90"
+        padding:"8dp"
+        text: root.acabamento + ": R$" + str("{:.2f}".format(root.preco))
         height: self.texture_size[1]
         font_size:"16dp"
+
+
+<CartaNaLista>
+    size_hint_y:None
+    height: "150dp"
+    width:root.width
+    FitImage:
+        pos_hint:{"center_x":0.5, "center_y":0.5}
+        source:root.image
+    FitImage:
+        pos_hint:{"center_x":0.5, "center_y":0.5}
+        source:"./assets/images/overlay.png"
+    MDLabel:
+        pos_hint:{"center_x":0.5, "center_y":0.5}
+        text:f"{root.name}\n{root.set_name}\n{root.qnt}x {root.acabamento}: R${root.preco:.2f}"
+        halign:"center"
+        font_size:"22dp"
+        outline_width:"2dp"
+        outline_colour:[1,1,1,1]
+        
