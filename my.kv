@@ -39,7 +39,7 @@
                         height:"50dp"
                         md_bg_color:[0.3,0.3,0.3,1]
                         width:root.width
-                        padding:"15dp",0,"15dp",0
+                        padding:["15dp",0]
                         MDLabel:
                             font_name:"assets/fonts/FiraSans-SemiBold"
                             text:"Total:"
@@ -54,41 +54,37 @@
 
 <ScannerTab>
     orientation:"vertical"
-    md_bg_color: [1,1,1,1]
-    id:proxya
+    id:scannertab
+    Camera:
+        resolution: 1920, 1080
+        play: True
+        size_hint:2,2
+        allow_stretch:True
+        center:self.size and scannertab.center
+        canvas.before:
+            PushMatrix
+            Rotate:
+                angle: -90
+                axis: 0,0,1
+                origin: root.width/2, root.height/2
+        canvas.after:
+            PopMatrix
     MDFloatLayout:
-        md_bg_color:[1,0,1,1]
-        size_hint:None,None
-        size: proxya.width, proxya.height
-        id:proxyb
-        Camera:
-            id: camera
-            center:self.size and proxyb.center
-            size_hint:None,None
-            size: proxyb.height, proxyb.width
-            allow_stretch: True
-            keep_ratio:False
-            play: True
-            canvas.before:
-                PushMatrix
-                Rotate:
-                    origin: self.center
-                    angle: -90
-            canvas.after:
-                PopMatrix
-            
-        # MDLabel:
-        #     text:"[Câmera]"
-        #     height: dp(30)
-        #     halign: "center"
-        # MDFloatLayout:
-        #     # anchor_x:"center"
-        #     # anchor_y:"bottom"
-        #     # padding: [0,0,0,50]
-        #     MDIconButton:
-        #         icon: "camera-outline"
-        #         pos_hint: {'center_x': .5,'center_y': .5}
-        #         md_bg_color: [0,0,0,1]
+        anchor_x:"center"
+        anchor_y:"bottom"
+        MDIconButton:
+            icon: "camera-outline"
+            pos_hint: {'center_x': .5,'center_y': 0.1}
+            md_bg_color: [0,0,0,1]
+    
+    MDFloatLayout:
+        canvas:
+            Color:
+                rgba: 0,1,0,0.2
+            Rectangle:
+                pos: scannertab.width/2 - dp(100), scannertab.height/2 - dp(100*1.38)
+                size: dp(200),dp(200*1.38)
+
 
 
 <ListaTab>
@@ -97,7 +93,7 @@
         cols:1
         size_hint_y: None
         # orientation:'vertical'
-        padding:0,"25dp",0,0
+        padding:[0,"25dp"]
         spacing:"25dp"
 
 
@@ -126,7 +122,7 @@
         cols:1
         size_hint_y: None
         # orientation:'vertical'
-        padding:"25dp"
+        padding:["25dp","25dp"]
         spacing:"25dp"
         AsyncImage:
             source: "https://repositorio.sbrauble.com/arquivos/in/magic/480206/6425a814e682a-pdr8t-qd3ci-12757948266425a814e6872.jpg"
@@ -175,7 +171,7 @@
 
 
 <ListaPrecos>
-    padding:0,"10dp",0,0
+    padding:[0,"10dp"]
     orientation:'vertical'
     spacing:"20dp"
     adaptive_height: True
@@ -190,7 +186,7 @@
     orientation:'vertical'
     md_bg_color:[0.3,0.3,0.3,1]
     size_hint: 1, None
-    padding:"20dp","10dp","20dp","30dp"
+    padding:["20dp","20dp"]
     height:self.minimum_height
 
        
@@ -209,7 +205,7 @@
         color:[1,1,1,1]
         width:"20dp"
     MDLabel:
-        padding:"8dp"
+        padding:["8dp","8dp"]
         text: root.acabamento + ": R$" + str("{:.2f}".format(root.preco))
         height: self.texture_size[1]
         font_size:"16dp"
