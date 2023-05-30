@@ -20,12 +20,30 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 
 class CartaTab(MDScrollView):
-    image_url = StringProperty()
+    image_url = StringProperty('./assets/images/overlay.png')
+    card_name = StringProperty()
     
     def search(self, text):
         carta = Card(text)
         print(carta.__dict__)
         self.image_url = carta.image_url
+        self.card_name = carta.name
+        
+        set_cards = self.ids["set_cards"]
+        set_cards.clear_widgets()
+        for set, precos in carta.precos.items():
+            set_widget = SetCard()
+            lista_precos_widget = ListaPrecos(set_name=set)
+            for acabamento, preco in precos.items():
+                lista_precos_widget.add_widget(
+                    LinhaPreco(
+                        acabamento=acabamento,
+                        preco=preco
+                    )
+                )
+            
+            set_widget.add_widget(lista_precos_widget)            
+            set_cards.add_widget(set_widget)
 
 class ScannerTab(MDFloatLayout):
     pass

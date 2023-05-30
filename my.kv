@@ -122,17 +122,21 @@
 
 <CartaTab>
     id: carta_tab
+    do_scroll_x: False
+    do_scroll_y: True
     MDGridLayout:
+        id:grid
         bg_color:[1,1,1,1]
         cols:1
         size_hint_y: None
-        # orientation:'vertical'
         padding:["25dp","25dp"]
         spacing:"25dp"
+        height: self.minimum_height
         MDTextField:
             id:campo_nome
             hint_text: "Pesquisa por nome"
             helper_text: "Ex. Bocarra Sinistra Colossal"
+            helper_text_mode: "on_focus"
             icon_right: "magnify"
             on_text_validate:carta_tab.search(self.text)
 
@@ -144,42 +148,20 @@
             allow_stretch:True
             keep_ratio:True
         MDLabel:
-            text:"Chandra, Farol da Esperança"
+            text:root.card_name
             font_size:"18dp"
             font_name:"assets/fonts/FiraSans-Bold"
             text_color:[0,0,0,1]
             halign:"center"
             bold:True
-
-        SetCard:
-            ListaPrecos:
-                set_name:"Marcha das Máquinas"
-                LinhaPreco:
-                    acabamento:"Normal"
-                    preco: 48.80
-                LinhaPreco:
-                    acabamento:"Promo"
-                    preco: 44.90
-                LinhaPreco:
-                    acabamento:"Foil"
-                    preco: 69.90
-                LinhaPreco:
-                    acabamento:"Pre-Release"
-                    preco: 71.90
-                            
-        SetCard:
-            ListaPrecos:
-                set_name:"Marcha das Máquinas (Borderless)"
-                LinhaPreco:
-                    acabamento:"Normal"
-                    preco: 79.90
-                LinhaPreco:
-                    acabamento:"Foil"
-                    preco: 174.99
-
-                            
-
-                    
+        MDGridLayout:
+            id:set_cards
+            bg_color:[1,1,1,1]
+            cols:1
+            size_hint_y: None
+            padding:[0,"25dp"]
+            spacing:"25dp"
+            height: self.minimum_height
 
 
 <ListaPrecos>
