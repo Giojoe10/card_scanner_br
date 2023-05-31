@@ -13,7 +13,7 @@ package.domain = org.giojoe.scanner
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,ttf,kv
+source.include_exts = py,png,jpg,kv,atlas,ttf,kv,json
 
 # (list) List of inclusions using pattern matching
 source.include_patterns = assets/images/*.png
@@ -37,7 +37,7 @@ version = 0.2.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy==2.1.0,kivymd==1.0.2,pillow,requests,certifi,charset-normalizer,idna,urllib3,openssl,xcamera
+requirements = python3,kivy==2.1.0,kivymd==1.0.2,pillow,requests,certifi,charset-normalizer,idna,urllib3,openssl,cachetools,docutils,google-api-core,google-api-python-client,google-cloud,google-cloud-vision,googleapis-common-protos,grpcio,grpcio-status,proto-plus,protobuf,pyasn1,pyasn1-modules,Pygments,rsa,six
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -330,7 +330,7 @@ android.allow_backup = True
 #p4a.source_dir =
 
 # (str) The directory in which python-for-android should look for your own build recipes (if any)
-#p4a.local_recipes =
+p4a.local_recipes = "./.buildozer/android/platform/python-for-android/p4a-recipes"
 
 # (str) Filename to the hook for p4a
 #p4a.hook =
